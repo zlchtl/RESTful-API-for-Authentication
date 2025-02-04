@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'constance',
     'rest_framework',
+    'drf_yasg',
     'django_filters',
     'MyAPI',
 ]
