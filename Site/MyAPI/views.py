@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from .models import RefreshToken, User
+from .models import RefreshToken
 from .serializers import UserSerializer, LoginSerializer, RefreshTokenSerializer
 from .authentication import create_access_token
 from constance import config
