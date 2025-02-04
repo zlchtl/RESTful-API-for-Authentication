@@ -51,14 +51,23 @@ class RefreshTokenView(APIView):
         if serializer.is_valid():
             refresh_token = RefreshToken.objects.filter(token=serializer.validated_data['refresh_token']).first()
 
-
             if not refresh_token or refresh_token.is_expired:
                 return Response({'error': 'Invalid or expired Refresh Token'}, status=status.HTTP_401_UNAUTHORIZED)
 
-            access_token = create_access_token(refresh_token.user)
-            return Response({'access_token': access_token})
+            user = refresh_token.user
+
+            RefreshToken.objects.filter(user=user).delete()
+
+            access_token = create_access_token(user)
+            new_refresh_token = RefreshToken.objects.create(user=user, expires_at=timezone.now() + timezone.timedelta(days=config.REFRESH_TOKEN_EXPIRE_DAYS))
+
+            return Response({
+                'access_token': access_token,
+                'refresh_token': str(new_refresh_token.token)
+            })
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class LogoutView(APIView):
