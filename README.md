@@ -2,6 +2,8 @@
 
 REST API for user authentication and authorization system using Django and Django REST Framework. The system supports user registration, authentication, token renewal, logout and updating of their personal information.
 
+Technology stack: Django, django-constance, DjangoRestFramework, PyJWT.
+
 API documentation: `/swagger/` or `/redoc/`.
 Admin webpage: `/admin/`.
 API webpages: 
